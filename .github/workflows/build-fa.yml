@@ -1,0 +1,32 @@
+name: Build Mindful APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.8"
+          channel: stable
+
+      - name: Use debug signing for local release build
+        run: sed -i '0,/signingConfig signingConfigs.release/s//signingConfig signingConfigs.debug/' android/app/build.gradle
+
+      - run: flutter pub get
+      - run: flutter gen-l10n
+      - run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mindful-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

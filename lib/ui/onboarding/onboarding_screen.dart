@@ -20,6 +20,7 @@ import 'package:mindful/config/app_constants.dart';
 import 'package:mindful/models/permissions_model.dart';
 import 'package:mindful/providers/system/mindful_settings_provider.dart';
 import 'package:mindful/providers/system/permissions_provider.dart';
+import 'package:mindful/ui/onboarding/language_page.dart';
 import 'package:mindful/ui/onboarding/onboarding_page.dart';
 import 'package:mindful/ui/onboarding/permission_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -42,24 +43,32 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   final PageController _controller = PageController();
   final _animCurve = Curves.easeInOut;
   final _animDuration = AppConstants.defaultAnimDuration;
-  late final List<Widget> _pages = [
-    OnboardingPage(
-      title: context.locale.onboarding_page_one_title,
-      imgArtPath: "assets/illustrations/onboarding_1.png",
-      description: context.locale.onboarding_page_one_info,
-    ),
-    OnboardingPage(
-      title: context.locale.onboarding_page_two_title,
-      imgArtPath: "assets/illustrations/onboarding_2.png",
-      description: context.locale.onboarding_page_two_info,
-    ),
-    OnboardingPage(
-      title: context.locale.onboarding_page_three_title,
-      imgArtPath: "assets/illustrations/onboarding_3.png",
-      description: context.locale.onboarding_page_three_info,
-    ),
-    const PermissionsPage(),
-  ];
+  /// Language page is shown only on first run
+  int get _pageCount => widget.isOnboardingDone ? 4 : 5;
+
+  /// Built on every rebuild so that texts follow the selected language
+  Widget _buildPage(int index) {
+    final pages = <Widget>[
+      if (!widget.isOnboardingDone) const LanguagePage(),
+      OnboardingPage(
+        title: context.locale.onboarding_page_one_title,
+        imgArtPath: "assets/illustrations/onboarding_1.png",
+        description: context.locale.onboarding_page_one_info,
+      ),
+      OnboardingPage(
+        title: context.locale.onboarding_page_two_title,
+        imgArtPath: "assets/illustrations/onboarding_2.png",
+        description: context.locale.onboarding_page_two_info,
+      ),
+      OnboardingPage(
+        title: context.locale.onboarding_page_three_title,
+        imgArtPath: "assets/illustrations/onboarding_3.png",
+        description: context.locale.onboarding_page_three_info,
+      ),
+      const PermissionsPage(),
+    ];
+    return pages[index];
+  }
 
   @override
   void initState() {
@@ -114,7 +123,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   void _skipToLastPage() {
     if (mounted) {
       _controller.animateToPage(
-        _pages.length - 1,
+        _pageCount - 1,
         duration: _animDuration,
         curve: _animCurve,
       );
@@ -123,7 +132,8 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == _pages.length - 1;
+    final isLastPage = _currentPage == _pageCount - 1;
+    final onLanguagePage = !widget.isOnboardingDone && _currentPage == 0;
     final perms = ref.watch(permissionProvider);
     final haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
         perms.haveDisplayOverlayPermission &&
@@ -139,11 +149,11 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
             PageView.builder(
               controller: _controller,
               physics: const BouncingScrollPhysics(),
-              itemCount: _pages.length,
+              itemCount: _pageCount,
               onPageChanged: (i) => setState(() => _currentPage = i),
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: _pages[index],
+                child: _buildPage(index),
               ),
             ),
 
@@ -160,7 +170,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                       onPressed: _skipToLastPage,
                       child: Text(context.locale.onboarding_skip_btn_label),
                     )
-                        .animate(target: isLastPage ? 0 : 1)
+                        .animate(target: (isLastPage || onLanguagePage) ? 0 : 1)
                         .scale(duration: 100.ms),
 
                     /// Bottom controls
@@ -172,7 +182,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                           /// Page Dots
                           SmoothPageIndicator(
                             controller: _controller,
-                            count: _pages.length,
+                            count: _pageCount,
                             effect: ExpandingDotsEffect(
                               dotWidth: 10,
                               dotHeight: 10,

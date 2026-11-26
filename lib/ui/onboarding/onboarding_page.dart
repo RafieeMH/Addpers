@@ -28,6 +28,9 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRtl = const ['fa', 'ar', 'he', 'ur', 'ps', 'ku']
+        .contains(Localizations.localeOf(context).languageCode);
+
     return Padding(
       padding: EdgeInsets.only(bottom: bottomPadding),
       child: Column(
@@ -59,11 +62,17 @@ class OnboardingPage extends StatelessWidget {
               4.vBox,
 
               /// Description
-              StyledText(
-                description,
-                fontSize: 16,
-                color: Theme.of(context).hintColor,
-                textAlign: TextAlign.left,
+              SizedBox(
+                width: double.infinity,
+                child: Directionality(
+                  textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+                  child: StyledText(
+                    description,
+                    fontSize: 16,
+                    color: Theme.of(context).hintColor,
+                    textAlign: isRtl ? TextAlign.right : TextAlign.left,
+                  ),
+                ),
               ),
             ],
           ),

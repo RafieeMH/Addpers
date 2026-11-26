@@ -1,5 +1,6 @@
 package com.mindful.android.services.quickTiles
 
+import com.mindful.android.utils.LocaleHelper
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.os.Build
@@ -28,6 +29,7 @@ class FocusQuickTileService : TileService() {
     }
 
     override fun onStartListening() {
+        LocaleHelper.applySavedLocale(this)
         try {
             // Check focus session status
             val isFocusActive = Utils.isServiceRunning(this, FocusSessionService::class.java)

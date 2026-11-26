@@ -1,5 +1,6 @@
 package com.mindful.android.services.tracking
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
@@ -28,6 +29,7 @@ class MindfulTrackerService : Service() {
     val getLaunchTrackingManager get() = launchTrackingManager
 
     override fun onCreate() {
+        LocaleHelper.applySavedLocale(this)
         overlayManager = OverlayManager(this)
         reminderManager = ReminderManager(overlayManager, ::onNewAppLaunch)
         restrictionManager = RestrictionManager(this, ::stopIfNoUsage)

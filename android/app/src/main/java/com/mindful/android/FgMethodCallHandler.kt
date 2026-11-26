@@ -1,5 +1,6 @@
 package com.mindful.android
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -88,11 +89,8 @@ class FgMethodCallHandler(
 
     private fun updateLocale(languageCode: String) {
         if (languageCode.isNotEmpty()) {
-            val newLocale = Locale(languageCode)
-            Locale.setDefault(newLocale)
-            val config = Configuration()
-            config.setLocale(newLocale)
-            context.resources.updateConfiguration(config, context.resources.displayMetrics)
+            LocaleHelper.save(context, languageCode)
+            LocaleHelper.applyLocale(context, languageCode)
         }
     }
 

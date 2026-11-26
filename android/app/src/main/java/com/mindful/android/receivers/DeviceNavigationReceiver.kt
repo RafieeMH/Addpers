@@ -1,5 +1,6 @@
 package com.mindful.android.receivers
 
+import com.mindful.android.utils.LocaleHelper
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -41,6 +42,7 @@ class DeviceNavigationReceiver(
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        LocaleHelper.applySavedLocale(context)
         intent?.let {
             /// Return if not desired event
             if (it.action != Intent.ACTION_CLOSE_SYSTEM_DIALOGS) return

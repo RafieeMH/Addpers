@@ -1,5 +1,6 @@
 package com.mindful.android.workers
 
+import com.mindful.android.utils.LocaleHelper
 import android.content.Context
 import android.util.Log
 import androidx.annotation.UiThread
@@ -29,6 +30,7 @@ class FlutterBgExecutionWorker(
     private val latch = CountDownLatch(1)
 
     override fun doWork(): Result {
+        LocaleHelper.applySavedLocale(applicationContext)
         try {
             workerParams.inputData.getString(FLUTTER_TASK_ID)?.let {
                 Log.d(TAG, "doWork: Starting task{$it} on native side")

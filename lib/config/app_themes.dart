@@ -47,8 +47,15 @@ class AppTheme {
     'Yellow': Colors.yellow,
   };
 
+  /// Uses Vazirmatn (if bundled in assets/fonts) for Persian glyphs.
+  static ThemeData _withPersianFont(ThemeData t) => t.copyWith(
+        textTheme: t.textTheme.apply(fontFamilyFallback: const ['Vazirmatn']),
+        primaryTextTheme:
+            t.primaryTextTheme.apply(fontFamilyFallback: const ['Vazirmatn']),
+      );
+
   static ThemeData darkTheme({Color? seedColor, required bool isAmoled}) =>
-      ThemeData.from(
+      _withPersianFont(ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: seedColor ?? _kSeedColor,
@@ -59,9 +66,9 @@ class AppTheme {
         pageTransitionsTheme: _kPageTransitionTheme,
         scaffoldBackgroundColor: isAmoled ? Colors.black : null,
         extensions: [SkeletonizerConfigData.dark(effect: _kShimmerEffect)],
-      );
+      ));
 
-  static ThemeData lightTheme({Color? seedColor}) => ThemeData.from(
+  static ThemeData lightTheme({Color? seedColor}) => _withPersianFont(ThemeData.from(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: seedColor ?? _kSeedColor,
@@ -70,5 +77,5 @@ class AppTheme {
       ).copyWith(
         pageTransitionsTheme: _kPageTransitionTheme,
         extensions: [SkeletonizerConfigData(effect: _kShimmerEffect)],
-      );
+      ));
 }

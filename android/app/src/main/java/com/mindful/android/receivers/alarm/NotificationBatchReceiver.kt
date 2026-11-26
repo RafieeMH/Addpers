@@ -1,5 +1,6 @@
 package com.mindful.android.receivers.alarm
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -36,6 +37,7 @@ class NotificationBatchReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        LocaleHelper.applySavedLocale(context)
         if (intent.action == ACTION_PUSH_BATCH) {
             WorkManager.getInstance(context).enqueueUniqueWork(
                 TAG, ExistingWorkPolicy.KEEP,
@@ -60,6 +62,7 @@ class NotificationBatchReceiver : BroadcastReceiver() {
         )
 
         override fun doWork(): Result {
+        LocaleHelper.applySavedLocale(applicationContext)
             try {
                 val settings = NotificationSettings.fromJson(
                     params.inputData.getString(EXTRA_NOTIFICATION_SETTINGS_JSON) ?: ""

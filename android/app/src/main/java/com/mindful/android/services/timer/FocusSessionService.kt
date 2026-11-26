@@ -11,6 +11,7 @@
  */
 package com.mindful.android.services.timer
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.Service
 import android.content.ComponentName
 import android.content.Intent
@@ -42,6 +43,7 @@ class FocusSessionService : Service() {
     private var session: FocusSession? = null
 
     override fun onCreate() {
+        LocaleHelper.applySavedLocale(this)
         mTrackerServiceConn = SafeServiceConnection(
             context = this,
             serviceClass = MindfulTrackerService::class.java

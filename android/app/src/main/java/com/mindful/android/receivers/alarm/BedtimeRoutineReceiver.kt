@@ -11,6 +11,7 @@
  */
 package com.mindful.android.receivers.alarm
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -46,6 +47,7 @@ class BedtimeRoutineReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        LocaleHelper.applySavedLocale(context)
         when (intent.action) {
             ACTION_ALERT_BEDTIME, ACTION_START_BEDTIME, ACTION_STOP_BEDTIME -> {
                 /// Schedule worker
@@ -85,6 +87,7 @@ class BedtimeRoutineReceiver : BroadcastReceiver() {
 
 
         override fun doWork(): Result {
+        LocaleHelper.applySavedLocale(applicationContext)
             try {
                 val action = inputData.getString("action")
 

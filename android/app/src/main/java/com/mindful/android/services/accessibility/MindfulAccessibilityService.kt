@@ -11,6 +11,7 @@
  */
 package com.mindful.android.services.accessibility
 
+import com.mindful.android.utils.LocaleHelper
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
 import android.content.SharedPreferences
@@ -82,6 +83,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private var wellbeing = Wellbeing()
 
     override fun onCreate() {
+        LocaleHelper.applySavedLocale(this)
         super.onCreate()
         trackingManager = TrackingManager(context = this)
         deviceFeaturesManager = DeviceFeaturesManager(

@@ -11,6 +11,7 @@
  */
 package com.mindful.android.services.vpn
 
+import com.mindful.android.utils.LocaleHelper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.VpnService
@@ -45,6 +46,7 @@ class MindfulVpnService : VpnService() {
     private var mIsServiceRunning = false
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        LocaleHelper.applySavedLocale(this)
 
         if (intent?.action == ServiceBinder.ACTION_START_MINDFUL_SERVICE) {
             startFgService()

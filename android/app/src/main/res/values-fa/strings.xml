@@ -30,7 +30,7 @@
     <string name="widget_wifi_data_label">Wi-Fi</string>
     <string name="widget_aggregated_usage_label">مجموع استفاده</string>
     <string name="internet_blocker_running_notification_info">Mindful اکنون دسترسی به اینترنت را مدیریت می‌کند تا به تمرکز شما کمک کند.‏</string>
-    <string name="app_blocker_running_notification_info">Mindful اکنون استفاده از برنامه‌ها را رصد می‌کند تا به تمرکز شما و مدیریت عادت‌های دیجیتالتان کمک کند.‏</string>
+    <string name="app_blocker_running_notification_info">Mindful اکنون استفاده از برنامه‌ها را پیگیری می‌کند تا به تمرکز شما و مدیریت عادت‌های دیجیتالتان کمک کند.‏</string>
     <string name="overlay_permission_denied_notification_title">دسترسی رد شد</string>
     <string name="overlay_permission_denied_notification_info">لطفاً با زدن روی این اعلان، دسترسی نمایش روی برنامه‌های دیگر را به Mindful بدهید. در صفحه بعد، Mindful را در فهرست برنامه‌ها پیدا کنید و روی «مجاز» بزنید.‏</string>
     <string name="app_paused_reason_focus_session">وقت تمرکز است! این برنامه متوقف شده تا در مسیرتان بمانید و از جلسه‌تان بیشترین بهره را ببرید.‏</string>
@@ -67,8 +67,8 @@
     <string name="bedtime_started_notification_info">وقت آرام گرفتن است. روال خواب شروع شد تا آرام شوید و برای شبی راحت آماده شوید.‏</string>
     <string name="bedtime_ended_notification_info">روز بخیر! روال خواب تمام شد؛ آماده شوید تا روز را با انرژی و طراوت شروع کنید.‏</string>
     <string name="emergency_pause_notification_title">توقف اضطراری</string>
-    <string name="emergency_pause_notification_info" comment="Time string as placeholder. ex: 'App blocker will resume after 3m 15s'" formatted="true">مسدودسازی برنامه‌ها بعد از %s دوباره برقرار می‌شود</string>
-    <string name="emergency_pause_ended_notification_info">توقف اضطراری تمام شد و مسدودسازی برنامه‌ها دوباره فعال است. حواس‌پرتی‌ها دوباره مسدودند؛ متمرکز بمانید!‏</string>
+    <string name="emergency_pause_notification_info" comment="Time string as placeholder. ex: 'App blocker will resume after 3m 15s'" formatted="true">مسدود کردن برنامه‌ها بعد از %s دوباره برقرار می‌شود</string>
+    <string name="emergency_pause_ended_notification_info">توقف اضطراری تمام شد و مسدود کردن برنامه‌ها دوباره فعال است. حواس‌پرتی‌ها دوباره مسدودند؛ متمرکز بمانید!‏</string>
     <string name="focus_session_notification_title">جلسه تمرکز</string>
     <string name="focus_session_notification_info" comment="Time string as placeholder. ex: 'Focus session will end in 33m 15s'" formatted="true">جلسه تمرکز %s دیگر تمام می‌شود</string>
     <string name="focus_session_infinite_notification_info" comment="Time string as placeholder. ex: 'You've been focused for 33m 15s'" formatted="true">%s است که متمرکز هستید</string>

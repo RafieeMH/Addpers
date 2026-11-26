@@ -11,6 +11,7 @@
  */
 package com.mindful.android.services.timer
 
+import com.mindful.android.utils.LocaleHelper
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
@@ -30,6 +31,7 @@ class EmergencyPauseService : Service() {
     private lateinit var mTrackerServiceConn: SafeServiceConnection<MindfulTrackerService>
 
     override fun onCreate() {
+        LocaleHelper.applySavedLocale(this)
         mTrackerServiceConn = SafeServiceConnection(
             context = this,
             serviceClass = MindfulTrackerService::class.java

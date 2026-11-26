@@ -81,6 +81,12 @@ class MindfulApp extends ConsumerWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
 
+          /// Keep layout left-to-right even for RTL languages like Persian
+          builder: (context, child) => Directionality(
+            textDirection: TextDirection.ltr,
+            child: child ?? const SizedBox.shrink(),
+          ),
+
           /// Navigation
           initialRoute: AppRoutes.rootSplashPath,
           routes: AppRoutes.routes,
